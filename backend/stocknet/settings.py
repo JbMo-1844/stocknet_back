@@ -9,7 +9,7 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',') if os.env
 
 
 def get_database_config():
-    database_url = os.environ.get('DATABASE_URL', 'postgresql://postgres:yAnidNiBAHGTdEtAODRColFRkNiRHvFP@postgres.railway.internal:5432/railway')
+    database_url = os.environ.get('DATABASE_URL', 'postgresql://postgres:IYfovFwyiuEHkFjnQCfziuArEnGGSusV@postgres.railway.internal:5432/railway')
     if database_url:
         parsed = urlparse(database_url)
         if parsed.scheme == 'sqlite':
@@ -25,7 +25,7 @@ def get_database_config():
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': parsed.path.lstrip('/'),
             'USER': parsed.username or 'postgres',
-            'PASSWORD': parsed.password or 'yAnidNiBAHGTdEtAODRColFRkNiRHvFP',
+            'PASSWORD': parsed.password or 'IYfovFwyiuEHkFjnQCfziuArEnGGSusV',
             'HOST': parsed.hostname or 'postgres.railway.internal',
             'PORT': str(parsed.port or 5432),
             'OPTIONS': options,
