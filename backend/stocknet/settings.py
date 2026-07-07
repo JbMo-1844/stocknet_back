@@ -9,7 +9,7 @@ ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',') if os.env
 
 
 def get_database_config():
-    database_url = os.environ.get('DATABASE_URL')
+    database_url = os.environ.get('DATABASE_URL', 'postgresql://postgres:yAnidNiBAHGTdEtAODRColFRkNiRHvFP@postgres.railway.internal:5432/railway')
     if database_url:
         parsed = urlparse(database_url)
         if parsed.scheme == 'sqlite':
@@ -19,14 +19,14 @@ def get_database_config():
             }
 
         options = {}
-        if parsed.hostname and 'neon.tech' in parsed.hostname:
+        if parsed.hostname and ('neon.tech' in parsed.hostname or 'railway.internal' in parsed.hostname):
             options['sslmode'] = 'require'
         return {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': parsed.path.lstrip('/'),
-            'USER': parsed.username or '',
-            'PASSWORD': parsed.password or '',
-            'HOST': parsed.hostname or 'localhost',
+            'USER': parsed.username or 'postgres',
+            'PASSWORD': parsed.password or 'yAnidNiBAHGTdEtAODRColFRkNiRHvFP',
+            'HOST': parsed.hostname or 'postgres.railway.internal',
             'PORT': str(parsed.port or 5432),
             'OPTIONS': options,
         }
